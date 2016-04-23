@@ -10,10 +10,11 @@
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    // Please see the Grunt documentation for more information regarding task
+    // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function() {
+    grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function() {
+    /*    
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       punctuation: '.',
@@ -44,7 +45,20 @@ module.exports = function(grunt) {
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
+        });
+    */
+
+        var options = this.options({
+            module: "language-properties"
+        });
+        
+        var moduleTemplate = 'angular.module("' + options.module + '", []);';
+        
+        this.files.forEach(function (f) {
+            grunt.file.write(f.dest, moduleTemplate);            
+            grunt.log.writeln('File "' + f.dest + '" created.');
+        });
+
     });
-  });
 
 };
