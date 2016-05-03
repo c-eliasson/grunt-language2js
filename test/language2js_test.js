@@ -45,4 +45,13 @@ exports.language2js = {
 
         test.done();
     },
+    ignore_incorrect_filenames: function (test) {
+        test.expect(1);
+        
+        var actual = grunt.file.read('tmp/ignore_incorrect_filenames.js');
+        var expected = grunt.file.read('test/expected/empty_module.js');
+        test.equal(actual, expected, 'should have ignored the file with incorrect file name and generated an empty module.');
+        
+        test.done();
+    }
 };

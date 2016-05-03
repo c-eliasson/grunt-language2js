@@ -8,57 +8,62 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+            
+    var propertiesParser = require('properties-parser');
+    var path = require('path');
 
-    // Please see the Grunt documentation for more information regarding task
-    // creation: http://gruntjs.com/creating-tasks
+    var moduleTemplate = 'angular.module("{{module-name}}", [])' +
+                            '.config(function ($translateProvider) {' +
+                                '$translateProvider.translations("en", {{strings}} );' +
+                            '});';
 
-    grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function() {
-    /*    
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
-
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
-
-      // Handle options.
-      src += options.punctuation;
-
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
-        });
-    */
-
+    grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function () {
+        
         var options = this.options({
             module: "language-properties"
         });
+
+        var strings = {};
         
-        var moduleTemplate = 'angular.module("' + options.module + '", []);';
-        
-        this.files.forEach(function (f) {
-            grunt.file.write(f.dest, moduleTemplate);            
-            grunt.log.writeln('File "' + f.dest + '" created.');
+        this.files.forEach(function (file) {
+            
+            file.src.filter(function (filepath) {
+                // Ignore files that doesn't exist
+                if (!grunt.file.exists(filepath)) {
+                    grunt.verbose.writeln("File '" + filepath + "' does not exist and was ignored.");
+                    return false;
+                // Ignore files that doesn't match name pattern {somename}.{locale}.properties
+                } else if (path.basename(filepath).split(".").length !== 3) {
+                    grunt.verbose.writeln("File '" + filepath + "' does not match correct filename pattern and was ignored.");
+                    return false;
+                } else {
+                    return true;
+                }             
+            }).map(function (filepath) {
+                extend(strings, propertiesParser.read(filepath));
+            });
+            
+            grunt.file.write(file.dest, createModule(options.module, strings));
+            grunt.log.writeln('File "' + file.dest + '" created.');
         });
 
     });
-
+    
+    /**
+     * Utility function to extend an object
+     */
+    function extend(obj, props) {
+        for (var prop in props) {
+            if (Object.prototype.hasOwnProperty.call(props, prop)) {
+                obj[prop] = props[prop];
+            }
+        }
+    }
+    
+    function createModule(moduleName, strings) {
+        return moduleTemplate
+            .replace("{{module-name}}", moduleName)
+            .replace("{{strings}}", JSON.stringify(strings));
+    }
 };

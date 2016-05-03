@@ -1,1 +1,1 @@
-﻿angular.module("custom-module-name", []);
+angular.module("custom-module-name", []).config(function ($translateProvider) {$translateProvider.translations("en", {"onekey":"Some value"} );});

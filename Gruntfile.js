@@ -32,14 +32,17 @@ module.exports = function(grunt) {
         language2js: {
             default_options_module: {
                 options: { },
-                files: { 'tmp/default_options_module.js': ['test/fixtures/*.properties'] }
+                files: { 'tmp/default_options_module.js': ['test/fixtures/one_line.en.properties'] }
             },
             custom_options_module: {
                 options: {
                     module: "custom-module-name"
                 },
-                files: { 'tmp/custom_options_module.js': ['test/fixtures/*.properties'] }
-            }, 
+                files: { 'tmp/custom_options_module.js': ['test/fixtures/one_line.en.properties'] }
+            },
+            ignore_incorrect_filenames: {
+                files: { 'tmp/ignore_incorrect_filenames.js': ['test/fixtures/no_locale.properties'] }
+            } 
         },
 
         // Unit tests.
