@@ -53,5 +53,14 @@ exports.language2js = {
         test.equal(actual, expected, 'should have ignored the file with incorrect file name and generated an empty module.');
         
         test.done();
+    },
+    add_one_provider_per_locale: function (test) {
+        test.expect(1);
+
+        var actual = grunt.file.read('tmp/add_one_provider_per_locale.js');
+        var expected = grunt.file.read('test/expected/two_locales.js');
+        test.equal(actual, expected, 'should have created two translationProviders, one for each locale.');
+
+        test.done();
     }
 };

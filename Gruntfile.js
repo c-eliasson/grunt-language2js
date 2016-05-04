@@ -42,7 +42,10 @@ module.exports = function(grunt) {
             },
             ignore_incorrect_filenames: {
                 files: { 'tmp/ignore_incorrect_filenames.js': ['test/fixtures/no_locale.properties'] }
-            } 
+            },
+            add_one_provider_per_locale: {
+                files: { 'tmp/add_one_provider_per_locale.js': ['test/fixtures/one_line.en.properties', 'test/fixtures/one_line.de.properties'] }
+            }
         },
 
         // Unit tests.

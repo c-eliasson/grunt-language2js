@@ -15,8 +15,10 @@ module.exports = function (grunt) {
 
     var moduleTemplate = 'angular.module("{{module-name}}", [])' +
                             '.config(function ($translateProvider) {' +
-                                '$translateProvider.translations("en", {{strings}} );' +
+                                '{{providers}}' +
                             '});';
+
+    var providerTemplate = '$translateProvider.translations("{{locale}}", {{strings}} );';
 
     grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function () {
         
@@ -41,7 +43,7 @@ module.exports = function (grunt) {
                     return true;
                 }             
             }).map(function (filepath) {
-                extend(strings, propertiesParser.read(filepath));
+                extend(strings, propertiesParser.read(filepath), path.basename(filepath).split(".")[1]);
             });
             
             grunt.file.write(file.dest, createModule(options.module, strings));
@@ -53,17 +55,32 @@ module.exports = function (grunt) {
     /**
      * Utility function to extend an object
      */
-    function extend(obj, props) {
+    function extend(obj, props, locale) {
+        if (!obj[locale]) {
+            obj[locale] = {};
+        }
+
         for (var prop in props) {
             if (Object.prototype.hasOwnProperty.call(props, prop)) {
-                obj[prop] = props[prop];
+                obj[locale][prop] = props[prop];
             }
         }
     }
     
     function createModule(moduleName, strings) {
+        var providers = [];
+
+        for (var language in strings) {
+            if (Object.prototype.hasOwnProperty.call(strings, language)) {
+                providers.push(
+                    providerTemplate
+                        .replace("{{locale}}", language)
+                        .replace("{{strings}}", JSON.stringify(strings[language])));
+            }
+        }
+
         return moduleTemplate
             .replace("{{module-name}}", moduleName)
-            .replace("{{strings}}", JSON.stringify(strings));
+            .replace("{{providers}}", providers.join(""));
     }
 };

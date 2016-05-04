@@ -1,1 +1,1 @@
-﻿angular.module("language-properties", []).config(function ($translateProvider) {$translateProvider.translations("en", {} );});
+﻿angular.module("language-properties", []).config(function ($translateProvider) {});
