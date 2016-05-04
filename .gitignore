@@ -4,3 +4,4 @@ tmp
 *.njsproj
 .vs/
 *.dat
+.idea

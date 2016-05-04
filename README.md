@@ -37,46 +37,39 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.module
 Type: `String`
-Default value: `',  '`
+Default value: `'language-properties'`
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+A string value that is used as the module name for the AngularJS module
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to generate an AngularJS module from all `*.properties` files in the solution.
 
 ```js
 grunt.initConfig({
   language2js: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dest/angular-language-module.js': ['**/*.properties'],
     },
   },
 });
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Default AngularJS module name
+In this example, the generated AngularJS module will get `my-language-module` as its module name.
 
 ```js
 grunt.initConfig({
   language2js: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+        module: "my-language-module"
     },
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dest/angular-language-module.js': ['**/*.properties'],
     },
   },
 });
