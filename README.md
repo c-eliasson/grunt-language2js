@@ -1,4 +1,4 @@
-# grunt-language2js [![npm version](https://badge.fury.io/js/grunt-language2js.svg)](https://badge.fury.io/js/grunt-language2js)
+# grunt-language2js [![npm version](https://badge.fury.io/js/grunt-language2js.svg)](https://badge.fury.io/js/grunt-language2js) [![Build Status](https://travis-ci.org/c-eliasson/grunt-language2js.svg?branch=master)](https://travis-ci.org/c-eliasson/grunt-language2js)
 
 > Grunt plugin for converting .properties language files into an AngularJS module
 
