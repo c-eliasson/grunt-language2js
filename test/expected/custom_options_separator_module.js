@@ -1,0 +1,1 @@
+angular.module("language-properties", []).config(["$translateProvider", function ($translateProvider) {$translateProvider.translations("en", {"onekey":"Some value"} );}]);

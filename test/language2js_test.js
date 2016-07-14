@@ -62,5 +62,14 @@ exports.language2js = {
         test.equal(actual, expected, 'should have created two translationProviders, one for each locale.');
 
         test.done();
+    },
+    underscore_locale_separator: function(test) {
+        test.expect(1);
+
+        var actual = grunt.file.read('tmp/underscore_as_locale_separator.js');
+        var expected = grunt.file.read('test/expected/custom_options_separator_module.js');
+        test.equal(actual, expected, 'should accept files with _ used as locale separator.');
+
+        test.done();
     }
 };

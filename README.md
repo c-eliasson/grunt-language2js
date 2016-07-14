@@ -43,6 +43,12 @@ Default value: `'language-properties'`
 
 A string value that is used as the module name for the AngularJS module
 
+#### options.localSeparator
+Type: `String`
+Default value: `'.'`
+
+A character that is used to separate the locale from the rest of the file name - will be matched according to somefilename{{localSeparator}}{{locale}}.properties
+
 ### Usage Examples
 
 #### Default Options
@@ -59,7 +65,7 @@ grunt.initConfig({
 });
 ```
 
-#### Default AngularJS module name
+#### Custom AngularJS module name
 In this example, the generated AngularJS module will get `my-language-module` as its module name.
 
 ```js
@@ -77,6 +83,3 @@ grunt.initConfig({
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_

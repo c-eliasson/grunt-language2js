@@ -45,6 +45,12 @@ module.exports = function(grunt) {
             },
             add_one_provider_per_locale: {
                 files: { 'tmp/add_one_provider_per_locale.js': ['test/fixtures/one_line.en.properties', 'test/fixtures/one_line.de.properties'] }
+            },
+            underscore_as_locale_separator: {
+                options: {
+                    localeSeparator: "_"
+                },
+                files: { 'tmp/underscore_as_locale_separator.js': ['test/fixtures/underscoreseparator_en.properties'] }
             }
         },
 

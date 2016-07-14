@@ -23,7 +23,8 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('language2js', 'Grunt plugin for converting .properties language files into an AngularJS module', function () {
         
         var options = this.options({
-            module: "language-properties"
+            module: "language-properties",
+            localeSeparator: "."
         });
 
         var strings = {};
@@ -35,15 +36,15 @@ module.exports = function (grunt) {
                 if (!grunt.file.exists(filepath)) {
                     grunt.verbose.writeln("File '" + filepath + "' does not exist and was ignored.");
                     return false;
-                // Ignore files that doesn't match name pattern {somename}.{locale}.properties
-                } else if (path.basename(filepath).split(".").length !== 3) {
+                // Ignore files that doesn't match name pattern {somename}{localeSeparator}{locale}.properties
+                } else if (!validFileName(path.basename(filepath), options.localeSeparator)) {
                     grunt.verbose.writeln("File '" + filepath + "' does not match correct filename pattern and was ignored.");
                     return false;
                 } else {
                     return true;
                 }             
             }).map(function (filepath) {
-                extend(strings, propertiesParser.read(filepath), path.basename(filepath).split(".")[1]);
+                extend(strings, propertiesParser.read(filepath), getLocaleFromFileName(path.basename(filepath), options.localeSeparator));
             });
             
             grunt.file.write(file.dest, createModule(options.module, strings));
@@ -51,7 +52,31 @@ module.exports = function (grunt) {
         });
 
     });
-    
+
+    /**
+     * Is the file name valid - i.e. does it contain a valid locale
+     * @param fileName File name of localization file
+     * @param localSeparator Character to use as locale separator
+     * @returns {boolean} Is file name valid
+     */
+    function validFileName (fileName, localSeparator) {
+        return !!getLocaleFromFileName(fileName, localSeparator);
+    }
+
+    /**
+     * Get locale from file name
+     * @param fileName File name of localization file
+     * @param localeSeparator Character to use as locale separator
+     * @returns {string} Locale or empty
+     */
+    function getLocaleFromFileName (fileName, localeSeparator) {
+        var parts = fileName
+            .replace(".properties", "")
+            .split(localeSeparator);
+
+        return (parts && parts.length === 2) ? parts[1] : "";
+    }
+
     /**
      * Utility function to extend an object
      */
