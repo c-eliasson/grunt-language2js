@@ -43,11 +43,11 @@ Default value: `'language-properties'`
 
 A string value that is used as the module name for the AngularJS module
 
-#### options.localSeparator
+#### options.localeSeparator
 Type: `String`
 Default value: `'.'`
 
-A character that is used to separate the locale from the rest of the file name - will be matched according to somefilename{{localSeparator}}{{locale}}.properties
+A character that is used to separate the locale from the rest of the file name - will be matched according to somefilename{{localeSeparator}}{{locale}}.properties
 
 ### Usage Examples
 
