@@ -14,9 +14,9 @@ module.exports = function (grunt) {
     var path = require('path');
 
     var moduleTemplate = 'angular.module("{{module-name}}", [])' +
-                            '.config(function ($translateProvider) {' +
+                            '.config(["$translateProvider", function ($translateProvider) {' +
                                 '{{providers}}' +
-                            '});';
+                            '}]);';
 
     var providerTemplate = '$translateProvider.translations("{{locale}}", {{strings}} );';
 

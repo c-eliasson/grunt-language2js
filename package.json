@@ -1,7 +1,7 @@
 {
   "name": "grunt-language2js",
   "description": "Grunt plugin for converting .properties language files into an AngularJS module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/c-eliasson/grunt-language2js",
   "author": {
     "name": "Christofer Eliasson",
