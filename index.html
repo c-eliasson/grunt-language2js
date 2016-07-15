@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>grunt-language2js by c-eliasson</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">grunt-language2js</h1>
+      <h2 class="project-tagline">Grunt plugin for converting .properties language files into an AngularJS module</h2>
+      <a href="https://github.com/c-eliasson/grunt-language2js" class="btn">View on GitHub</a>
+      <a href="https://github.com/c-eliasson/grunt-language2js/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/c-eliasson/grunt-language2js/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="grunt-language2js" class="anchor" href="#grunt-language2js" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>grunt-language2js</h1>
+
+<blockquote>
+<p>Grunt plugin for converting .properties language files into an AngularJS module utilizing <a href="https://angular-translate.github.io/">angular-translate</a>.</p>
+</blockquote>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>This plugin requires Grunt <code>~0.4.5</code></p>
+
+<p>If you haven't used <a href="http://gruntjs.com/">Grunt</a> before, be sure to check out the <a href="http://gruntjs.com/getting-started">Getting Started</a> guide, as it explains how to create a <a href="http://gruntjs.com/sample-gruntfile">Gruntfile</a> as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:</p>
+
+<div class="highlight highlight-source-shell"><pre>npm install grunt-language2js --save-dev</pre></div>
+
+<p>Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">loadNpmTasks</span>(<span class="pl-s"><span class="pl-pds">'</span>grunt-language2js<span class="pl-pds">'</span></span>);</pre></div>
+
+<h2>
+<a id="the-language2js-task" class="anchor" href="#the-language2js-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The "language2js" task</h2>
+
+<h3>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h3>
+
+<p>In your project's Gruntfile, add a section named <code>language2js</code> to the data object passed into <code>grunt.initConfig()</code>.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">initConfig</span>({
+  language2js<span class="pl-k">:</span> {
+    options<span class="pl-k">:</span> {
+      <span class="pl-c">// Task-specific options go here.</span>
+    },
+    your_target<span class="pl-k">:</span> {
+      <span class="pl-c">// Target-specific file lists and/or options go here.</span>
+    },
+  },
+});</pre></div>
+
+<h3>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h3>
+
+<h4>
+<a id="optionsmodule" class="anchor" href="#optionsmodule" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.module</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>'language-properties'</code></p>
+
+<p>A string value that is used as the module name for the AngularJS module</p>
+
+<h4>
+<a id="optionslocaleseparator" class="anchor" href="#optionslocaleseparator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.localeSeparator</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>'.'</code></p>
+
+<p>A character that is used to separate the locale from the rest of the file name - will be matched according to somefilename{{localeSeparator}}{{locale}}.properties</p>
+
+<h3>
+<a id="usage-examples" class="anchor" href="#usage-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Examples</h3>
+
+<h4>
+<a id="default-options" class="anchor" href="#default-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Default Options</h4>
+
+<p>In this example, the default options are used to generate an AngularJS module from all <code>*.properties</code> files in the solution.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">initConfig</span>({
+  language2js<span class="pl-k">:</span> {
+    options<span class="pl-k">:</span> {},
+    files<span class="pl-k">:</span> {
+      <span class="pl-s"><span class="pl-pds">'</span>dest/angular-language-module.js<span class="pl-pds">'</span></span><span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>**/*.properties<span class="pl-pds">'</span></span>],
+    },
+  },
+});</pre></div>
+
+<h4>
+<a id="custom-angularjs-module-name" class="anchor" href="#custom-angularjs-module-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Custom AngularJS module name</h4>
+
+<p>In this example, the generated AngularJS module will get <code>my-language-module</code> as its module name.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">initConfig</span>({
+  language2js<span class="pl-k">:</span> {
+    options<span class="pl-k">:</span> {
+        module<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>my-language-module<span class="pl-pds">"</span></span>
+    },
+    files<span class="pl-k">:</span> {
+      <span class="pl-s"><span class="pl-pds">'</span>dest/angular-language-module.js<span class="pl-pds">'</span></span><span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>**/*.properties<span class="pl-pds">'</span></span>],
+    },
+  },
+});</pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/c-eliasson/grunt-language2js">grunt-language2js</a> is maintained by <a href="https://github.com/c-eliasson">c-eliasson</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
